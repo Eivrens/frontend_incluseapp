@@ -1,0 +1,161 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="modal-toolbar">
+    <ion-title>Cadastrar Responsável</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <form class="modal-form">
+    
+    <div class="form-container">
+      
+      <div class="form-header">
+        <ion-icon name="people-outline" class="header-icon"></ion-icon>
+        <h2>Dados do Responsável</h2>
+        <p>Preencha as informações abaixo para criar o cadastro</p>
+      </div>
+
+      <div class="form-fields">
+        
+        <!-- Nome Completo -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">Nome Completo *</ion-label>
+          <ion-input 
+            type="text" 
+            placeholder="Digite o nome completo"
+            [(ngModel)]="parent.fullName"
+            name="fullName"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <!-- E-mail -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">E-mail *</ion-label>
+          <ion-input 
+            type="email" 
+            placeholder="exemplo@email.com"
+            [(ngModel)]="parent.email"
+            name="email"
+            required>
+          </ion-input>
+          <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+        </ion-item>
+
+        <!-- Telefone -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">Telefone *</ion-label>
+          <ion-input 
+            type="tel" 
+            placeholder="(00) 00000-0000"
+            maxlength="15"
+            [(ngModel)]="parent.phone"
+            (ionInput)="formatPhone($event, 'phone')"
+            name="phone"
+            required>
+          </ion-input>
+          <ion-icon name="call-outline" slot="start" class="input-icon"></ion-icon>
+        </ion-item>
+
+        <!-- CPF -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">CPF *</ion-label>
+          <ion-input 
+            type="tel" 
+            placeholder="000.000.000-00"
+            maxlength="14"
+            [(ngModel)]="parent.cpf"
+            (ionInput)="formatCPF($event)"
+            name="cpf"
+            required>
+          </ion-input>
+          <ion-icon name="card-outline" slot="start" class="input-icon"></ion-icon>
+        </ion-item>
+
+        <!-- Grau de Parentesco -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">Grau de Parentesco</ion-label>
+          <ion-select 
+            [(ngModel)]="parent.relationship"
+            name="relationship"
+            interface="popover"
+            placeholder="Selecione">
+            <ion-select-option value="pai">Pai</ion-select-option>
+            <ion-select-option value="mae">Mãe</ion-select-option>
+            <ion-select-option value="avo">Avô/Avó</ion-select-option>
+            <ion-select-option value="tio">Tio/Tia</ion-select-option>
+            <ion-select-option value="tutor">Tutor Legal</ion-select-option>
+            <ion-select-option value="outro">Outro</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </div>
+
+      <!-- Seção de Credenciais -->
+      <div class="credentials-section">
+        <h3 class="section-subtitle">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          Credenciais de Acesso
+        </h3>
+        <p class="section-description">A senha será usada para login no aplicativo</p>
+
+        <!-- Senha -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">Senha *</ion-label>
+          <ion-input 
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Mínimo 6 caracteres"
+            [(ngModel)]="parent.password"
+            name="password"
+            required>
+          </ion-input>
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-button 
+            slot="end" 
+            fill="clear" 
+            (click)="togglePasswordVisibility('password')">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <!-- Confirmar Senha -->
+        <ion-item fill="outline" class="custom-input">
+          <ion-label position="floating">Confirmar Senha *</ion-label>
+          <ion-input 
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            placeholder="Digite a senha novamente"
+            [(ngModel)]="parent.confirmPassword"
+            name="confirmPassword"
+            required>
+          </ion-input>
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-button 
+            slot="end" 
+            fill="clear" 
+            (click)="togglePasswordVisibility('confirmPassword')">
+            <ion-icon [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+
+    </div>
+
+  </form>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-toolbar">
+    <ion-button 
+      expand="block" 
+      class="save-btn"
+      (click)="save()">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      Salvar Responsável
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

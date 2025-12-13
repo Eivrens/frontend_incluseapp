@@ -1,0 +1,169 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="modal-toolbar">
+    <ion-title>Novo Compromisso</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <form class="commitment-form">
+    
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="calendar-outline"></ion-icon>
+        Tipo de Compromisso *
+      </h3>
+
+      <div class="type-grid">
+        <div 
+          class="type-card"
+          *ngFor="let type of commitmentTypes"
+          [class.selected]="commitment.type === type.value"
+          (click)="selectType(type.value)">
+          <div class="type-icon-wrapper">
+            <span class="type-emoji">{{ type.emoji }}</span>
+            <ion-icon [name]="type.icon" [color]="commitment.type === type.value ? type.color : 'medium'"></ion-icon>
+          </div>
+          <span>{{ type.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Informações Básicas
+      </h3>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Título *</ion-label>
+        <ion-input 
+          type="text" 
+          placeholder="Ex: Prova de Matemática"
+          [(ngModel)]="commitment.title"
+          name="title">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-textarea 
+          rows="3"
+          placeholder="Detalhes sobre o compromisso..."
+          [(ngModel)]="commitment.description"
+          name="description">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">Data *</ion-label>
+            <ion-input 
+              type="date"
+              [min]="minDate"
+              [max]="maxDate"
+              [(ngModel)]="commitment.date"
+              name="date">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">Horário *</ion-label>
+            <ion-input 
+              type="time"
+              [(ngModel)]="commitment.time"
+              name="time">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Local</ion-label>
+        <ion-input 
+          type="text"
+          placeholder="Ex: Sala 101, Auditório..."
+          [(ngModel)]="commitment.location"
+          name="location">
+        </ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="school-outline"></ion-icon>
+        Turmas Envolvidas *
+      </h3>
+
+      <div class="select-all-wrapper">
+        <ion-item lines="none" class="toggle-item">
+          <ion-label>Selecionar Todas as Turmas</ion-label>
+          <ion-toggle 
+            [(ngModel)]="allClassesSelected"
+            (ionChange)="toggleAllClasses()"
+            name="allClasses">
+          </ion-toggle>
+        </ion-item>
+      </div>
+
+      <div class="classes-grid" *ngIf="!allClassesSelected">
+        <div 
+          class="class-chip"
+          *ngFor="let class of classes"
+          [class.selected]="isClassSelected(class.id)"
+          (click)="toggleClass(class.id)">
+          <ion-icon [name]="isClassSelected(class.id) ? 'checkmark-circle' : 'ellipse-outline'"></ion-icon>
+          <span>{{ class.name }}</span>
+        </div>
+      </div>
+
+      <div class="selected-summary">
+        <ion-badge [color]="commitment.classes.length > 0 ? 'success' : 'medium'">
+          {{ getSelectedClassesText() }}
+        </ion-badge>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="settings-outline"></ion-icon>
+        Configurações
+      </h3>
+
+      <ion-item lines="none" class="toggle-item">
+        <div class="toggle-content">
+          <div class="toggle-label">
+            <ion-icon name="notifications-outline"></ion-icon>
+            <ion-label>Notificar Responsáveis</ion-label>
+          </div>
+          <p class="toggle-description">Os pais receberão uma notificação sobre este compromisso</p>
+        </div>
+        <ion-toggle 
+          [(ngModel)]="commitment.notifyParents"
+          name="notifyParents"
+          slot="end">
+        </ion-toggle>
+      </ion-item>
+    </div>
+
+  </form>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-toolbar">
+    <ion-button 
+      expand="block" 
+      class="save-btn"
+      (click)="save()">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      Criar Compromisso
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

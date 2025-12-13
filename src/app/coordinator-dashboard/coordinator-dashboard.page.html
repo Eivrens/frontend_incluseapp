@@ -1,0 +1,230 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="clean-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" class="back-button">
+        <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="page-title">Painel do Coordenador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- HEADER COM FILTROS -->
+  <div class="filters-container">
+    
+    <!-- Barra de Pesquisa -->
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionInput)="onSearch()"
+      placeholder="Buscar alunos ou responsáveis..."
+      mode="ios"
+      class="clean-searchbar">
+    </ion-searchbar>
+
+    <!-- Seletor de Turma -->
+    <ion-item lines="none" class="select-container">
+      <ion-label class="select-label">Filtrar por Turma</ion-label>
+      <ion-select 
+        [(ngModel)]="selectedClass" 
+        (ionChange)="onClassChange()"
+        interface="popover"
+        class="clean-select">
+        <ion-select-option value="all">Todas as Turmas</ion-select-option>
+        <ion-select-option *ngFor="let class of classes" [value]="class.id">
+          {{ class.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </div>
+
+  <!-- CARDS DE ESTATÍSTICAS -->
+  <div class="stats-container">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        
+        <ion-col size="6" size-md="3">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <ion-icon name="school-outline"></ion-icon>
+            </div>
+            <div class="stat-number">{{ stats.totalStudents }}</div>
+            <div class="stat-label">Alunos</div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-md="3">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <div class="stat-number">{{ stats.totalParents }}</div>
+            <div class="stat-label">Responsáveis</div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-md="3">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+            <div class="stat-number">{{ stats.activeCommitments }}</div>
+            <div class="stat-label">Compromissos</div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-md="3">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <ion-icon name="notifications-outline"></ion-icon>
+            </div>
+            <div class="stat-number">{{ stats.pendingLinks }}</div>
+            <div class="stat-label">Pendências</div>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- GRID DE AÇÕES PRINCIPAIS -->
+  <div class="actions-container">
+    <h2 class="section-title">Ações Rápidas</h2>
+    
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        
+        <ion-col size="6" size-md="3">
+          <div class="action-card" (click)="openStudentRegisterModal()">
+            <div class="action-icon">
+              <ion-icon name="person-add-outline"></ion-icon>
+            </div>
+            <div class="action-label">Cadastrar Aluno</div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-md="3">
+          <div class="action-card" (click)="openParentRegisterModal()">
+            <div class="action-icon">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <div class="action-label">Cadastrar Responsável</div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-md="3">
+          <div class="action-card" (click)="openLinkModal()">
+            <div class="action-icon">
+              <ion-icon name="link-outline"></ion-icon>
+            </div>
+            <div class="action-label">Vincular Aluno</div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-md="3">
+          <div class="action-card" (click)="openCommitmentModal()">
+            <div class="action-icon">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+            <div class="action-label">Novo Compromisso</div>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- VISÃO GERAL - LISTAGENS -->
+  <div class="overview-container">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        
+        <!-- LISTA DE ALUNOS RECENTES -->
+        <ion-col size="12" size-md="6">
+          <div class="list-card">
+            <div class="list-header">
+              <h3 class="list-title">
+                <ion-icon name="school-outline"></ion-icon>
+                Alunos Recentes
+              </h3>
+              <ion-badge class="list-badge">{{ filteredStudents.length }}</ion-badge>
+            </div>
+            
+            <div class="list-content">
+              
+              <ion-item 
+                lines="none" 
+                class="list-item" 
+                *ngFor="let student of filteredStudents.slice(0, 5)">
+                <ion-avatar slot="start">
+                  <img [src]="student.avatar" [alt]="student.name" />
+                </ion-avatar>
+                <ion-label>
+                  <h4 class="item-title">{{ student.name }}</h4>
+                  <p class="item-subtitle">{{ student.class }}</p>
+                </ion-label>
+                <ion-badge 
+                  slot="end" 
+                  [color]="student.status === 'active' ? 'success' : 'medium'"
+                  class="status-badge">
+                  {{ student.status === 'active' ? 'Ativo' : 'Inativo' }}
+                </ion-badge>
+              </ion-item>
+
+              <!-- Estado Vazio -->
+              <div class="empty-state" *ngIf="filteredStudents.length === 0">
+                <ion-icon name="school-outline"></ion-icon>
+                <p>Nenhum aluno encontrado</p>
+              </div>
+              
+            </div>
+          </div>
+        </ion-col>
+
+        <!-- LISTA DE COMPROMISSOS -->
+        <ion-col size="12" size-md="6">
+          <div class="list-card">
+            <div class="list-header">
+              <h3 class="list-title">
+                <ion-icon name="calendar-outline"></ion-icon>
+                Próximos Compromissos
+              </h3>
+              <ion-badge class="list-badge">{{ filteredCommitments.length }}</ion-badge>
+            </div>
+            
+            <div class="list-content">
+              
+              <ion-item 
+                lines="none" 
+                class="list-item commitment-item" 
+                *ngFor="let commitment of filteredCommitments.slice(0, 5)">
+                <div slot="start" class="commitment-icon" [attr.data-type]="commitment.type">
+                  <ion-icon [name]="getCommitmentIcon(commitment.type)"></ion-icon>
+                </div>
+                <ion-label>
+                  <h4 class="item-title">{{ commitment.title }}</h4>
+                  <p class="item-subtitle">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    {{ commitment.date | date:'dd/MM/yyyy' }} às {{ commitment.time }}
+                  </p>
+                  <ion-badge class="class-badge">{{ commitment.class }}</ion-badge>
+                </ion-label>
+              </ion-item>
+
+              <!-- Estado Vazio -->
+              <div class="empty-state" *ngIf="filteredCommitments.length === 0">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <p>Nenhum compromisso agendado</p>
+              </div>
+              
+            </div>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

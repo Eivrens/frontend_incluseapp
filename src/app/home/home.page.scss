@@ -1,0 +1,295 @@
+
+$theme-color: #60996E;
+
+ion-content {
+  --background: #fcfcfc;
+}
+
+/* CABEÇALHO */
+.custom-header {
+  background-color: $theme-color;
+  height: 140px;
+  border-bottom-right-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  padding-top: 30px;
+  position: relative;
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .main-avatar {
+    width: 55px;
+    height: 55px;
+    border: 2px solid #fff;
+    z-index: 2;
+  }
+
+  .user-name-box {
+    background-color: #F3EACD;
+    padding: 8px 15px 8px 25px;
+    border-radius: 0 15px 15px 0;
+    margin-left: -20px;
+    padding-left: 30px;
+    font-weight: 700;
+    color: #333;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .settings-icon {
+    font-size: 24px;
+    color: #fff;
+  }
+}
+
+.content-container {
+  padding: 20px;
+  margin-top: -20px;
+}
+
+/* CARD DO ALUNO */
+.student-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  padding: 15px;
+  margin-bottom: 20px;
+
+  .student-header {
+    background: #D1D1D6;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    .student-avatar {
+      width: 45px;
+      height: 45px;
+    }
+
+    .student-info {
+      h3 {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #333;
+      }
+      p {
+        margin: 2px 0 0;
+        font-size: 0.75rem;
+        color: #666;
+      }
+    }
+  }
+}
+
+/* PILLS / STATUS */
+.status-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pill {
+  background: #DCDCDF;
+  border-radius: 8px;
+  padding: 8px 12px; 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #555;
+
+  ion-icon {
+    font-size: 1.2rem;
+    color: $theme-color; /* Usa o Verde Sage */
+    min-width: 18px;
+  }
+}
+
+.pill-wide {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pill-full {
+  flex: 2;
+}
+
+.pill-small {
+  background: #DCDCDF;
+  min-width: 40px;
+  justify-content: center;
+}
+
+/* CARD COMPROMISSOS */
+.commitments-card {
+  background: #F2F2F7;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+
+  .card-header {
+    background: #C8C8CE;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #444;
+    }
+
+    .arrow-icon {
+      font-size: 1.5rem;
+      color: $theme-color; /* Usa o Verde Sage */
+    }
+  }
+
+  .commitment-list {
+    padding: 15px;
+    background: #F2F2F7;
+  }
+
+  .commitment-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.85rem;
+    color: #444;
+    
+    &.last {
+      border-bottom: none;
+    }
+  }
+}
+
+/* BOTÃO FLUTUANTE (FAB) CORRIGIDO */
+.custom-fab {
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  ion-fab-button {
+    /* Força a cor personalizada usando a variável */
+    --background: #{$theme-color}; 
+    --background-activated: #4b7a56;
+    --background-hover: #4b7a56;
+    --color: #fff;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  ion-icon {
+    color: #fff;
+    font-size: 24px;
+  }
+}
+
+.fab-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 10px;
+  z-index: 10;
+}
+
+/* BARRA DE MENU EXPANDIDA */
+.expanded-menu-bar {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 90%;
+  max-width: 400px;
+  height: 70px;
+  
+  background-color: #F3EACD;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 10px;
+  padding-right: 5px;
+  z-index: 999;
+  
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 50px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.menu-icon {
+  color: $theme-color; /* Usa o Verde Sage */
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  
+  &.relative {
+    position: relative;
+  }
+
+  /* Estilo de Item Selecionado */
+  &.active {
+    background-color: rgba(96, 153, 110, 0.2); /* Fundo transparente baseado no tema */
+    color: $theme-color;
+    transform: scale(1.1);
+  }
+}
+
+.menu-badge {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  background: #eb445a;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 10px;
+  border: 2px solid #F3EACD;
+}
+
+.close-btn-container {
+  background-color: $theme-color; 
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  margin-left: 10px;
+}

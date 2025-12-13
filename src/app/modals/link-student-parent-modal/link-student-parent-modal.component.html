@@ -1,0 +1,144 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="modal-toolbar">
+    <ion-title>Vincular Aluno ao Responsável</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <div class="modal-body">
+
+    <!-- SEÇÃO 1: BUSCAR RESPONSÁVEL -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="step-badge">1</div>
+        <h3>Selecione o Responsável</h3>
+      </div>
+
+      <!-- Barra de Pesquisa -->
+      <ion-searchbar
+        [(ngModel)]="searchTermParent"
+        (ionInput)="onParentSearch()"
+        placeholder="Buscar por nome, CPF ou e-mail..."
+        mode="ios"
+        class="custom-searchbar">
+      </ion-searchbar>
+
+      <!-- Lista de Responsáveis -->
+      <div class="parents-list">
+        <div 
+          class="parent-card" 
+          *ngFor="let parent of filteredParents"
+          [class.selected]="selectedParent?.id === parent.id"
+          (click)="selectParent(parent)">
+          
+          <div class="parent-avatar">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          
+          <div class="parent-info">
+            <h4>{{ parent.name }}</h4>
+            <p class="parent-cpf">CPF: {{ parent.cpf }}</p>
+            <p class="parent-email">{{ parent.email }}</p>
+          </div>
+
+          <ion-icon 
+            *ngIf="selectedParent?.id === parent.id" 
+            name="checkmark-circle" 
+            class="check-icon">
+          </ion-icon>
+        </div>
+
+        <!-- Estado Vazio -->
+        <div class="empty-state" *ngIf="filteredParents.length === 0">
+          <ion-icon name="people-outline"></ion-icon>
+          <p>Nenhum responsável encontrado</p>
+        </div>
+      </div>
+
+      <!-- Indicador de Seleção -->
+      <div class="selection-indicator" *ngIf="selectedParent">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <span>Selecionado: <strong>{{ selectedParent.name }}</strong></span>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2: SELECIONAR ALUNOS -->
+    <div class="section-card" [class.disabled]="!selectedParent">
+      <div class="section-header">
+        <div class="step-badge">2</div>
+        <h3>Selecione os Alunos</h3>
+      </div>
+
+      <p class="section-description" *ngIf="!selectedParent">
+        <ion-icon name="arrow-up-outline"></ion-icon>
+        Primeiro, selecione um responsável acima
+      </p>
+
+      <div *ngIf="selectedParent">
+        <!-- Barra de Pesquisa -->
+        <ion-searchbar
+          [(ngModel)]="searchTermStudent"
+          (ionInput)="onStudentSearch()"
+          placeholder="Buscar por nome ou turma..."
+          mode="ios"
+          class="custom-searchbar">
+        </ion-searchbar>
+
+        <!-- Lista de Alunos -->
+        <div class="students-list">
+          <div 
+            class="student-card" 
+            *ngFor="let student of filteredStudents"
+            [class.selected]="isStudentSelected(student.id)"
+            (click)="toggleStudent(student.id)">
+            
+            <ion-checkbox 
+              [checked]="isStudentSelected(student.id)"
+              (ionChange)="toggleStudent(student.id)">
+            </ion-checkbox>
+
+            <ion-avatar>
+              <img [src]="student.avatar" [alt]="student.name" />
+            </ion-avatar>
+
+            <div class="student-info">
+              <h4>{{ student.name }}</h4>
+              <p>{{ student.class }}</p>
+            </div>
+          </div>
+
+          <!-- Estado Vazio -->
+          <div class="empty-state" *ngIf="filteredStudents.length === 0">
+            <ion-icon name="school-outline"></ion-icon>
+            <p>Nenhum aluno encontrado</p>
+          </div>
+        </div>
+
+        <!-- Contador de Selecionados -->
+        <div class="selection-counter" *ngIf="selectedStudents.length > 0">
+          <ion-badge class="counter-badge">{{ selectedStudents.length }}</ion-badge>
+          <span>aluno(s) selecionado(s)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-toolbar">
+    <ion-button 
+      expand="block" 
+      class="confirm-btn"
+      [disabled]="!selectedParent || selectedStudents.length === 0"
+      (click)="save()">
+      <ion-icon name="link-outline" slot="start"></ion-icon>
+      Confirmar Vínculo
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

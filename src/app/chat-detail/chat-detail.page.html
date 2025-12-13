@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <div class="header-content">
+      <ion-avatar class="header-avatar" *ngIf="!contact.isGroup">
+        <img [src]="contact.avatar" />
+      </ion-avatar>
+      
+      <div class="group-avatar-small" *ngIf="contact.isGroup">
+        <span>{{ contact.avatar }}</span>
+      </div>
+
+      <div class="header-info">
+        <h2>{{ contact.name }}</h2>
+        <p>Online agora</p>
+      </div>
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="chat-content">
+  
+  <div class="message-list">
+    <div class="message-wrapper" *ngFor="let msg of messages" [class.my-message]="msg.user === 'me'">
+      
+      <div class="message-bubble">
+        <p>{{ msg.text }}</p>
+        <span class="time">{{ msg.time }}</span>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="input-toolbar">
+    <div class="input-container">
+      <ion-input 
+        placeholder="Digite uma mensagem..." 
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()">
+      </ion-input>
+      <ion-button fill="clear" class="send-btn" (click)="sendMessage()" [disabled]="!newMessage">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

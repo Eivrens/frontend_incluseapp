@@ -1,0 +1,140 @@
+ion-content {
+  --background: #fcfcfc;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    margin-bottom: 0.5rem;
+
+    img {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  .title {
+    color: #888;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.form-area {
+  width: 100%;
+  max-width: 320px;
+}
+
+.custom-segment {
+  background: #c8c8ce;
+  border-radius: 50px;
+  padding: 2px;
+  margin-bottom: 1.8rem;
+  height: 50px;
+
+  ion-segment-button {
+    --indicator-color: #6BAF7E;
+    --color: #777;
+    --color-checked: #fff;
+    --border-radius: 50px;
+    margin: 0;
+    min-height: 46px;
+    font-weight: 600;
+    text-transform: none;
+    font-size: 0.9rem;
+  }
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.custom-input {
+  --background: #fff;
+  --color: #000;
+  --border-color: #999;
+  --border-radius: 12px;
+  --padding-start: 15px;
+  --placeholder-color: #888;
+  --highlight-color-focused: #6BAF7E;
+  font-weight: 500;
+}
+
+.login-btn {
+  --background: #F3EACD;
+  --background-activated: #e6dbc0;
+  --background-hover: #e6dbc0;
+  --color: #000;
+  --border-radius: 25px;
+  --box-shadow: none;
+  font-weight: 700;
+  height: 55px;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.login-btn:disabled {
+  --background: #e0e0e0;
+  --color: #a0a0a0;
+  opacity: 0.8;
+}
+
+.login-btn.success-state {
+  --background: #6BAF7E !important;
+  --background-activated: #6BAF7E !important;
+  --background-hover: #6BAF7E !important;
+  --color: #ffffff !important;
+  transform: scale(1.02);
+}
+
+.forgot-password {
+  text-align: center;
+  
+  a {
+    color: #6BAF7E;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+}
+
+.footer-register {
+  margin-top: auto;
+  padding-top: 2rem;
+  text-align: center;
+
+  p {
+    color: #888;
+    font-size: 0.85rem;
+    
+    a {
+      color: #6BAF7E;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,108 @@
+/* Variável de Tema (Verde Sage) */
+$theme-color: #60996E;
+
+ion-content {
+  --background: #fcfcfc;
+}
+
+/* Header estilizado */
+.custom-toolbar {
+  --background: #{$theme-color};
+  --color: white;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+/* Área do Perfil */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  
+  ion-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    border: 3px solid $theme-color;
+  }
+
+  h3 {
+    margin: 5px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  p {
+    margin: 0 0 15px 0;
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .edit-btn {
+    --color: #{$theme-color};
+    --border-color: #{$theme-color};
+    --border-radius: 20px;
+    text-transform: none;
+    font-weight: 600;
+  }
+}
+
+/* Lista de Configurações */
+.settings-list {
+  background: transparent;
+  padding: 0 15px;
+
+  ion-list-header {
+    padding-left: 10px;
+    font-weight: 700;
+    color: #888;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  ion-item {
+    --background: #ffffff;
+    --border-radius: 12px;
+    --padding-start: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+
+    ion-icon {
+      color: $theme-color;
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    ion-label {
+      font-weight: 500;
+      color: #333;
+      font-size: 0.95rem;
+    }
+    
+    ion-toggle {
+      --track-background-checked: #{$theme-color};
+    }
+  }
+}
+
+/* Área de Logout */
+.logout-container {
+  padding: 30px 20px;
+  text-align: center;
+
+  ion-button {
+    --border-radius: 12px;
+    text-transform: none;
+    font-weight: 600;
+  }
+
+  .version {
+    margin-top: 15px;
+    color: #ccc;
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,162 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+
+/* --- ESTILIZAÇÃO DO POPUP (ALERT) PERSONALIZADO --- */
+/* --- ESTILIZAÇÃO DO POPUP (ALERT) PERSONALIZADO --- */
+.custom-logout-alert {
+  /* Força o fundo branco e texto escuro, independente do tema do celular */
+  --background: #ffffff !important;
+  --color: #333333 !important; 
+  --backdrop-opacity: 0.5;
+  
+  .alert-wrapper {
+    border-radius: 20px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+    background-color: #ffffff !important; /* Reforço para garantir branco */
+  }
+
+  /* Título "Sair da Conta" em Verde */
+  .alert-head {
+    padding-top: 25px;
+    
+    h2.alert-title {
+      color: #60996E !important; 
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+  }
+
+  /* Mensagem de texto */
+  .alert-message {
+    color: #666666 !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  /* Grupo de Botões */
+  .alert-button-group {
+    padding: 15px;
+    gap: 15px; /* Espaço entre os botões */
+    justify-content: center; /* Centraliza ou alinha conforme preferência */
+  }
+
+  /* Botão CANCELAR (Cinza) */
+  .alert-button-cancel {
+    color: #999999 !important;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  /* Botão SAIR (Sólido Verde) */
+  .alert-button-confirm {
+    background-color: #60996E !important;
+    color: #ffffff !important; /* Texto branco */
+    border-radius: 12px !important;
+    
+    /* Tamanho e espaçamento do botão sólido */
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    min-width: 100px;
+    height: 40px;
+    
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(96, 153, 110, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    /* Garante que o texto fique centralizado no botão sólido */
+    .alert-button-inner {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
+
+.access-denied-alert {
+  --background: #ffffff !important;
+  --color: #333333 !important;
+  --backdrop-opacity: 0.6;
+
+  .alert-wrapper {
+    border-radius: 20px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25) !important;
+    background-color: #ffffff !important;
+  }
+
+  .alert-head {
+    padding-top: 25px;
+
+    h2.alert-title {
+      color: #eb445a !important;
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+  }
+
+  .alert-message {
+    color: #666666 !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .alert-button-group {
+    padding: 15px;
+    justify-content: center;
+  }
+
+  .alert-button-confirm {
+    background-color: #eb445a !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    min-width: 100px;
+    height: 40px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(235, 68, 90, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    .alert-button-inner {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}

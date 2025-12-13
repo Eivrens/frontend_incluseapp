@@ -1,0 +1,68 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    
+    <div class="header">
+      <div class="logo">
+        <img src="assets/icon/logo.png" alt="Logo Inclus">
+      </div>
+      <h2 class="title">Login</h2>
+    </div>
+
+    <div class="form-area">
+      <ion-segment mode="ios" [(ngModel)]="selectedType" class="custom-segment">
+        <ion-segment-button value="student">
+          <ion-label>Sou Aluno/Pai</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="teacher">
+          <ion-label>Sou Professor</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <div class="inputs">
+        <ion-input
+          class="custom-input"
+          placeholder="CPF"
+          fill="outline"
+          mode="md"
+          type="tel"
+          maxlength="14"
+          (ionInput)="formatCPF($event)"
+          [(ngModel)]="credentials.cpf">
+        </ion-input>
+
+        <ion-input
+          class="custom-input"
+          placeholder="Senha"
+          fill="outline"
+          mode="md"
+          type="password"
+          [(ngModel)]="credentials.password">
+        </ion-input>
+      </div>
+
+      <ion-button 
+        expand="block" 
+        class="login-btn" 
+        [ngClass]="{'success-state': isSuccess}"
+        [disabled]="credentials.cpf.length < 14 || !credentials.password"
+        (click)="onLogin()">
+        
+        <span *ngIf="!isSuccess">Acessar</span>
+        
+        <span *ngIf="isSuccess" style="display: flex; align-items: center; gap: 10px;">
+          Sucesso <ion-icon name="checkmark-circle"></ion-icon>
+        </span>
+
+      </ion-button>
+
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Esqueci a senha</a>
+      </div>
+    </div>
+
+    <div class="footer-register">
+      <p>Solicite o cadastro na escola</p>
+    </div>
+
+  </div>
+</ion-content>

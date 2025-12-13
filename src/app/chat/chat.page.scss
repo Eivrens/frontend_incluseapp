@@ -1,0 +1,217 @@
+$theme-color: #60996E; 
+
+ion-content {
+  --background: #fff;
+}
+
+.chat-header {
+  background-color: $theme-color;
+  height: 130px;
+  border-bottom-right-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  padding-top: 30px;
+
+  h1 {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  ion-icon {
+    color: #fff;
+    font-size: 28px;
+  }
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  padding-bottom: 80px; /* Espaço extra para não cortar o último item com o botão */
+}
+
+.chat-item {
+  background-color: #F0F0F5;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 2px solid #fff;
+}
+
+.avatar-area {
+  ion-avatar {
+    width: 55px;
+    height: 55px;
+    border: 2px solid #fff;
+  }
+
+  .group-avatar {
+    width: 55px;
+    height: 55px;
+    background-color: $theme-color;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    border: 2px solid #fff;
+  }
+}
+
+.content-area {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .name {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #333;
+    }
+    .time {
+      font-size: 0.7rem;
+      color: #777;
+      font-weight: 600;
+    }
+  }
+
+  .bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    .message {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #666;
+      max-width: 210px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      
+      .sender-name {
+        color: #333;
+        font-weight: 700;
+      }
+    }
+
+    .unread-badge {
+      background-color: $theme-color;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+/* BOTÃO FLUTUANTE (FAB) */
+.custom-fab {
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  ion-fab-button {
+    --background: #{$theme-color}; 
+    --background-activated: #4b7a56;
+    --background-hover: #4b7a56;
+    --color: #fff;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  ion-icon {
+    color: #fff;
+    font-size: 24px;
+  }
+}
+
+/* MENU INFERIOR */
+.expanded-menu-bar {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  height: 70px;
+  background-color: #F3EACD;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 10px;
+  padding-right: 5px;
+  z-index: 999;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 50px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.menu-icon {
+  color: $theme-color;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  
+  &.relative { position: relative; }
+
+  &.active {
+    background-color: rgba(96, 153, 110, 0.2);
+    color: $theme-color;
+    transform: scale(1.1);
+  }
+}
+
+.menu-badge {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  background: #eb445a;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 10px;
+  border: 2px solid #F3EACD;
+}
+
+.close-btn-container {
+  background-color: $theme-color;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  margin-left: 10px;
+}
