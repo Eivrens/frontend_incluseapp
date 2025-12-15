@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true">
+
+  <div class="chat-header">
+    <h1>Conversas</h1>
+    <ion-icon name="ellipsis-vertical"></ion-icon>
+  </div>
+
+  <div class="chat-list">
+    <div class="chat-item" *ngFor="let chat of conversations" (click)="openChat(chat)">
+      
+      <div class="avatar-area">
+        <ion-avatar *ngIf="!chat.isGroup">
+          <img [src]="chat.avatar" />
+        </ion-avatar>
+
+        <div class="group-avatar" *ngIf="chat.isGroup">
+          <span>{{ chat.avatar }}</span>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="top-row">
+          <h3 class="name">{{ chat.name }}</h3>
+          <span class="time">{{ chat.time }}</span>
+        </div>
+        
+        <div class="bottom-row">
+          <p class="message">
+            <span *ngIf="chat.senderName" class="sender-name">{{ chat.senderName }}: </span>
+            {{ chat.lastMessage }}
+          </p>
+          
+          <div class="unread-badge" *ngIf="chat.unreadCount > 0">
+            {{ chat.unreadCount }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <ion-fab *ngIf="!isMenuOpen" vertical="bottom" horizontal="end" slot="fixed" class="custom-fab">
+    <ion-fab-button (click)="toggleMenu()">
+      <ion-icon name="menu-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="expanded-menu-bar" *ngIf="isMenuOpen">
+    <div class="menu-icon" (click)="goToHome()">
+      <ion-icon name="person"></ion-icon>
+    </div>
+    <div class="menu-icon active relative">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <span class="menu-badge">3</span>
+    </div>
+    <div class="menu-icon" (click)="goToCalendar()">
+      <ion-icon name="calendar"></ion-icon>
+    </div>
+    <div class="menu-icon">
+      <ion-icon name="help-circle"></ion-icon>
+    </div>
+    <div class="close-btn-container" (click)="toggleMenu()">
+      <ion-icon name="chevron-back"></ion-icon>
+    </div>
+  </div>
+
+</ion-content>

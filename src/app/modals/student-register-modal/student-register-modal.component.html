@@ -1,0 +1,163 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="modal-toolbar">
+    <ion-title>Cadastrar Aluno</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <form class="register-form">
+    
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="person-outline"></ion-icon>
+        Dados Pessoais
+      </h3>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Nome Completo *</ion-label>
+        <ion-input 
+          type="text" 
+          placeholder="Digite o nome completo"
+          [(ngModel)]="student.fullName"
+          name="fullName">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">CPF *</ion-label>
+        <ion-input 
+          type="tel"
+          placeholder="000.000.000-00"
+          maxlength="14"
+          [(ngModel)]="student.cpf"
+          (ionInput)="formatCPF($event)"
+          name="cpf">
+        </ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">Data de Nascimento *</ion-label>
+            <ion-input 
+              type="date"
+              [max]="maxBirthDate"
+              [min]="minBirthDate"
+              [(ngModel)]="student.birthDate"
+              name="birthDate">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">Gênero</ion-label>
+            <ion-select 
+              [(ngModel)]="student.gender"
+              name="gender"
+              interface="popover"
+              placeholder="Selecione">
+              <ion-select-option value="M">Masculino</ion-select-option>
+              <ion-select-option value="F">Feminino</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="school-outline"></ion-icon>
+        Informações Acadêmicas
+      </h3>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Turma *</ion-label>
+        <ion-select 
+          [(ngModel)]="student.class"
+          name="class"
+          interface="popover"
+          placeholder="Selecione a turma">
+          <ion-select-option *ngFor="let c of classes" [value]="c">
+            {{ c }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Endereço</ion-label>
+        <ion-textarea 
+          rows="2"
+          placeholder="Rua, número, bairro, cidade"
+          [(ngModel)]="student.address"
+          name="address">
+        </ion-textarea>
+      </ion-item>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title">
+        <ion-icon name="medical-outline"></ion-icon>
+        Informações de Saúde
+      </h3>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Necessidades Especiais</ion-label>
+        <ion-input 
+          type="text"
+          placeholder="Ex: Deficiência auditiva, TDAH..."
+          [(ngModel)]="student.specialNeeds"
+          name="specialNeeds">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Alergias</ion-label>
+        <ion-input 
+          type="text"
+          placeholder="Ex: Lactose, amendoim..."
+          [(ngModel)]="student.allergies"
+          name="allergies">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Medicamentos de Uso Contínuo</ion-label>
+        <ion-input 
+          type="text"
+          placeholder="Liste os medicamentos"
+          [(ngModel)]="student.medications"
+          name="medications">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-item">
+        <ion-label position="stacked">Observações</ion-label>
+        <ion-textarea 
+          rows="3"
+          placeholder="Informações adicionais relevantes"
+          [(ngModel)]="student.observations"
+          name="observations">
+        </ion-textarea>
+      </ion-item>
+    </div>
+
+  </form>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-toolbar">
+    <ion-button 
+      expand="block" 
+      class="save-btn"
+      (click)="save()">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      Cadastrar Aluno
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

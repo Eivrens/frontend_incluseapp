@@ -1,0 +1,488 @@
+@use "sass:color";
+
+// Variáveis do Design System
+$primary-color: #60996E;
+$text-dark: #333333;
+$text-secondary: #666666;
+$text-light: #999999;
+$bg-page: #f5f6f9;
+$bg-card: #ffffff;
+$border-radius-lg: 20px;
+$border-radius-md: 12px;
+$shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+// ============================================
+// TOOLBAR DO MODAL
+// ============================================
+.modal-toolbar {
+  --background: #{$bg-card};
+  --border-width: 0;
+  --min-height: 60px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  ion-title {
+    color: $primary-color;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  ion-button {
+    --color: #{$text-secondary};
+
+    ion-icon {
+      font-size: 28px;
+    }
+  }
+}
+
+// ============================================
+// CONTENT
+// ============================================
+.modal-content {
+  --background: #{$bg-page};
+}
+
+.modal-body {
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+// ============================================
+// SEÇÕES (CARDS)
+// ============================================
+.section-card {
+  background: $bg-card;
+  border-radius: $border-radius-lg;
+  padding: 25px 20px;
+  margin-bottom: 20px;
+  box-shadow: $shadow-subtle;
+  transition: opacity 0.3s;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+
+    .step-badge {
+      width: 35px;
+      height: 35px;
+      background: $primary-color;
+      color: $bg-card;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: $text-dark;
+      flex: 1;
+    }
+  }
+
+  .section-description {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: $bg-page;
+    border-radius: $border-radius-md;
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+    color: $text-secondary;
+    font-weight: 500;
+
+    ion-icon {
+      font-size: 1.5rem;
+      color: $primary-color;
+    }
+  }
+}
+
+// ============================================
+// BARRA DE PESQUISA
+// ============================================
+.custom-searchbar {
+  --background: #{$bg-page};
+  --border-radius: #{$border-radius-md};
+  --box-shadow: none;
+  --icon-color: #{$primary-color};
+  --placeholder-color: #{$text-light};
+  --color: #{$text-dark};
+  padding: 0;
+  margin-bottom: 20px;
+
+  &::part(native) {
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+
+    &:focus-within {
+      border-color: $primary-color;
+    }
+  }
+}
+
+// ============================================
+// LISTA DE RESPONSÁVEIS
+// ============================================
+.parents-list {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: color.adjust($primary-color, $alpha: -0.7);
+    border-radius: 10px;
+
+    &:hover {
+      background: color.adjust($primary-color, $alpha: -0.5);
+    }
+  }
+
+  .parent-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: $bg-page;
+    border-radius: $border-radius-md;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &.selected {
+      border-color: $primary-color;
+      background: color.adjust($primary-color, $alpha: -0.95);
+    }
+
+    .parent-avatar {
+      width: 50px;
+      height: 50px;
+      background: $bg-card;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid $primary-color;
+      flex-shrink: 0;
+
+      ion-icon {
+        font-size: 1.5rem;
+        color: $primary-color;
+      }
+    }
+
+    .parent-info {
+      flex: 1;
+      min-width: 0;
+
+      h4 {
+        margin: 0 0 4px 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: $text-dark;
+      }
+
+      p {
+        margin: 2px 0;
+        font-size: 0.8rem;
+        color: $text-secondary;
+
+        &.parent-email {
+          font-size: 0.75rem;
+          color: $text-light;
+        }
+      }
+    }
+
+    .check-icon {
+      font-size: 2rem;
+      color: $primary-color;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ============================================
+// LISTA DE ALUNOS
+// ============================================
+.students-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: color.adjust($primary-color, $alpha: -0.7);
+    border-radius: 10px;
+
+    &:hover {
+      background: color.adjust($primary-color, $alpha: -0.5);
+    }
+  }
+
+  .student-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    background: $bg-page;
+    border-radius: $border-radius-md;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &.selected {
+      border-color: $primary-color;
+      background: color.adjust($primary-color, $alpha: -0.95);
+    }
+
+    ion-checkbox {
+      --size: 24px;
+      --checkbox-background: #{$bg-card};
+      --checkbox-background-checked: #{$primary-color};
+      --border-color: #{$text-light};
+      --border-color-checked: #{$primary-color};
+      --checkmark-color: #{$bg-card};
+      margin: 0;
+    }
+
+    ion-avatar {
+      width: 45px;
+      height: 45px;
+      border: 2px solid $primary-color;
+      flex-shrink: 0;
+    }
+
+    .student-info {
+      flex: 1;
+      min-width: 0;
+
+      h4 {
+        margin: 0 0 4px 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: $text-dark;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: $text-secondary;
+      }
+    }
+  }
+}
+
+// ============================================
+// ESTADO VAZIO
+// ============================================
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: $text-light;
+
+  ion-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $text-secondary;
+  }
+}
+
+// ============================================
+// INDICADORES DE SELEÇÃO
+// ============================================
+.selection-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  background: color.adjust($primary-color, $alpha: -0.95);
+  border-radius: $border-radius-md;
+  border-left: 3px solid $primary-color;
+
+  ion-icon {
+    font-size: 1.3rem;
+    color: $primary-color;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.85rem;
+    color: $text-secondary;
+    font-weight: 500;
+
+    strong {
+      color: $primary-color;
+      font-weight: 700;
+    }
+  }
+}
+
+.selection-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  background: color.adjust($primary-color, $alpha: -0.95);
+  border-radius: $border-radius-md;
+
+  .counter-badge {
+    background: $primary-color;
+    color: $bg-card;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 8px;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: $text-dark;
+    font-weight: 600;
+  }
+}
+
+// ============================================
+// FOOTER
+// ============================================
+.footer-toolbar {
+  --background: #{$bg-card};
+  --border-width: 0;
+  padding: 15px 20px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+
+  .confirm-btn {
+    --background: #{$primary-color};
+    --background-activated: #{color.adjust($primary-color, $lightness: -10%)};
+    --background-hover: #{color.adjust($primary-color, $lightness: -5%)};
+    --color: #{$bg-card};
+    --border-radius: #{$border-radius-md};
+    --box-shadow: 0 4px 15px #{color.adjust($primary-color, $alpha: -0.7)};
+    height: 55px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: none;
+    letter-spacing: 0.3px;
+    margin: 0;
+
+    &:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      --background: #{$text-light};
+      --box-shadow: none;
+      opacity: 0.5;
+    }
+
+    ion-icon {
+      font-size: 1.4rem;
+      margin-right: 8px;
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVIDADE
+// ============================================
+@media (max-width: 767px) {
+  .modal-toolbar {
+    ion-title {
+      font-size: 1rem;
+    }
+  }
+
+  .modal-body {
+    padding: 15px;
+    padding-bottom: 100px;
+  }
+
+  .section-card {
+    padding: 20px 15px;
+
+    .section-header {
+      .step-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .parents-list,
+  .students-list {
+    max-height: 220px;
+  }
+
+  .footer-toolbar {
+    padding: 12px 15px;
+
+    .confirm-btn {
+      height: 50px;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// ============================================
+// ACESSIBILIDADE
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

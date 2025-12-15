@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Configurações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div class="profile-section">
+    <ion-avatar>
+      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" alt="Perfil" />
+    </ion-avatar>
+    <h3>Maria Betânia da Silva</h3>
+    <p>Responsável</p>
+    <ion-button size="small" fill="outline" class="edit-btn">
+      Editar Perfil
+    </ion-button>
+  </div>
+
+  <ion-list lines="none" class="settings-list">
+    
+    <ion-list-header>Geral</ion-list-header>
+
+    <ion-item>
+      <ion-icon slot="start" name="notifications-outline"></ion-icon>
+      <ion-label>Notificações</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
+    </ion-item>
+
+    <ion-list-header>Conta</ion-list-header>
+
+    <ion-item button detail="true">
+      <ion-icon slot="start" name="person-outline"></ion-icon>
+      <ion-label>Dados Pessoais</ion-label>
+    </ion-item>
+
+    <ion-item button detail="true">
+      <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+      <ion-label>Alterar Senha</ion-label>
+    </ion-item>
+
+    <ion-item button detail="true">
+      <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+      <ion-label>Ajuda e Suporte</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <div class="logout-container">
+    <ion-button expand="block" color="danger" fill="outline" (click)="onLogout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Sair da Conta
+    </ion-button>
+    <p class="version">Versão 1.0.2</p>
+  </div>
+
+</ion-content>

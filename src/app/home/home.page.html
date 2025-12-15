@@ -1,20 +1,117 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content [fullscreen]="true" *ngIf="data">
+  
+  <div class="custom-header">
+    <div class="user-profile">
+      <ion-avatar class="main-avatar">
+        <img [src]="data.user.avatar" alt="Perfil" />
+      </ion-avatar>
+      <div class="user-name-box">
+        <span>{{ data.user.name }}</span>
+      </div>
+    </div>
+    
+    <ion-icon 
+      name="settings-sharp" 
+      class="settings-icon" 
+      (click)="goToSettings()">
+    </ion-icon>
   </div>
+
+  <div class="content-container">
+
+    <div class="student-card">
+      <div class="student-header">
+        <ion-avatar class="student-avatar">
+          <img [src]="data.student.avatar" alt="Aluno" />
+        </ion-avatar>
+        <div class="student-info">
+          <h3>{{ data.student.name }}</h3>
+          <p>{{ data.student.school }} • {{ data.student.class }}</p>
+        </div>
+      </div>
+
+      <div class="status-grid">
+        <div class="status-row">
+          <div class="pill pill-wide">
+            <ion-icon name="list-outline"></ion-icon>
+            <span *ngIf="data.stats.pendingTasks > 0">{{ data.stats.pendingTasks }}/2 Pendentes</span>
+            <span *ngIf="data.stats.pendingTasks === 0">Tudo em dia!</span>
+          </div>
+          <div class="pill pill-wide">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <span>Aula {{ data.stats.nextClassDate }}</span>
+          </div>
+          <div class="pill pill-small">
+            <ion-icon name="star" [color]="data.stats.averageGrade >= 6 ? 'success' : 'danger'"></ion-icon>
+            <span>{{ data.stats.averageGrade }}</span>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <div class="pill pill-full">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>{{ data.stats.nextExam }}</span>
+          </div>
+          <div class="pill pill-small">
+            <ion-icon name="chatbubble-ellipses-outline" color="success"></ion-icon>
+            <span>{{ data.stats.messages }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="commitments-card">
+      <div class="card-header">
+        <h3>Próximos Compromissos</h3>
+        <ion-icon name="chevron-forward-circle" class="arrow-icon"></ion-icon>
+      </div>
+      
+      <div class="commitment-list">
+        <div class="commitment-item" *ngFor="let item of data.commitments; let last = last" [class.last]="last">
+          <span><strong>{{ item.date }}</strong> - {{ item.title }}</span>
+        </div>
+        <div class="commitment-item last" *ngIf="data.commitments.length === 0">
+          <span>Nenhum compromisso agendado.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ion-fab *ngIf="!isMenuOpen" vertical="bottom" horizontal="end" slot="fixed" class="custom-fab">
+    <ion-fab-button (click)="toggleMenu()">
+      <ion-icon name="menu-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-badge color="danger" class="fab-badge" *ngIf="data.stats.messages > 0">{{ data.stats.messages }}</ion-badge>
+  </ion-fab>
+
+  <div class="expanded-menu-bar" *ngIf="isMenuOpen">
+    
+    <div class="menu-icon active">
+      <ion-icon name="person"></ion-icon>
+    </div>
+
+    <div class="menu-icon relative" (click)="goToChat()">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <span class="menu-badge" *ngIf="data.stats.messages > 0">{{ data.stats.messages }}</span>
+    </div>
+
+    <div class="menu-icon" (click)="goToCalendar()">
+      <ion-icon name="calendar"></ion-icon>
+    </div>
+
+    <div class="menu-icon" *ngIf="isCoordinator" (click)="goToCoordinatorDashboard()">
+      <ion-icon name="briefcase-outline"></ion-icon>
+    </div>
+
+    <div class="menu-icon">
+      <ion-icon name="help-circle"></ion-icon>
+    </div>
+
+    <div class="close-btn-container" (click)="toggleMenu()">
+      <ion-icon name="chevron-back"></ion-icon>
+    </div>
+
+  </div>
+
 </ion-content>

@@ -1,0 +1,110 @@
+<ion-content [fullscreen]="true">
+
+  <div class="calendar-header-fixed">
+    <div class="top-bar">
+      <ion-button fill="clear" (click)="goBack()" class="white-icon-btn">
+        <ion-icon name="chevron-back"></ion-icon>
+      </ion-button>
+      
+      <h2 id="open-modal-calendar" style="display:flex; align-items:center; gap:5px;">
+        {{ currentMonth }}
+        <ion-icon name="caret-down-outline" style="font-size: 0.8rem"></ion-icon>
+      </h2>
+      
+      <ion-button fill="clear" class="white-icon-btn">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="days-strip">
+      <div class="day-item" *ngFor="let d of days" [class.active]="d.active" (click)="selectDay(d)">
+        <span class="day-number">{{ d.dayNumber }}</span>
+        <span class="day-name">{{ d.weekDay }}</span>
+        <div class="dot" *ngIf="d.hasEvent && !d.active"></div>
+      </div>
+    </div>
+  </div>
+
+  <ion-modal trigger="open-modal-calendar" [keepContentsMounted]="true" [initialBreakpoint]="0.5" [breakpoints]="[0, 0.5]">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-datetime 
+          presentation="date" 
+          [value]="selectedDateISO" 
+          (ionChange)="onDateChange($event)"
+          mode="ios"
+          locale="pt-BR"
+          color="success">
+        </ion-datetime>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <div class="timeline-container">
+    
+    <div class="no-events" *ngIf="filteredSchedule.length === 0">
+      <ion-icon name="calendar-clear-outline" style="font-size: 40px; color: #ccc; margin-bottom: 10px;"></ion-icon>
+      <p>Nenhuma atividade registrada.</p>
+    </div>
+
+    <div class="timeline-wrapper" *ngFor="let item of filteredSchedule" [class.is-now]="item.status === 'now'">
+      
+      <div class="now-indicator-line" *ngIf="item.status === 'now'">
+        <div class="triangle"></div>
+        <div class="line"></div>
+      </div>
+
+      <div class="event-card" [ngClass]="item.type">
+        
+        <div class="time-section">
+          <span class="start">{{ item.timeStart }}</span>
+          <span class="end">{{ item.timeEnd }}</span>
+        </div>
+
+        <div class="vertical-divider"></div>
+
+        <div class="info-section">
+          <div class="info-header">
+            <h3 class="subject-title">{{ item.title }}</h3>
+            <span class="status-badge" *ngIf="item.status === 'now'">Agora</span>
+            <span class="status-text" *ngIf="item.status !== 'now'">{{ item.duration }}</span>
+          </div>
+          
+          <div class="info-details">
+            <span class="room-text">
+              <ion-icon name="location-outline" *ngIf="item.status !== 'now'"></ion-icon>
+              Local: {{ item.location }}
+            </span>
+            
+            <div class="warning-tag" *ngIf="item.alert">
+              <div class="alert-icon">!</div>
+              <span>{{ item.alert }}</span>
+            </div>
+          </div>
+        </div>
+
+        <ion-icon name="chevron-forward" class="card-arrow"></ion-icon>
+
+      </div>
+    </div>
+
+  </div>
+
+  <ion-fab *ngIf="!isMenuOpen" vertical="bottom" horizontal="end" slot="fixed" class="custom-fab">
+    <ion-fab-button (click)="toggleMenu()">
+      <ion-icon name="menu-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="expanded-menu-bar" *ngIf="isMenuOpen">
+    <div class="menu-icon" (click)="goBack()"><ion-icon name="person"></ion-icon></div>
+    <div class="menu-icon relative" (click)="goToChat()">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <span class="menu-badge">3</span>
+    </div>
+    <div class="menu-icon active"><ion-icon name="calendar"></ion-icon></div>
+    <div class="menu-icon"><ion-icon name="help-circle"></ion-icon></div>
+    <div class="close-btn-container" (click)="toggleMenu()"><ion-icon name="chevron-back"></ion-icon></div>
+  </div>
+
+</ion-content>
