@@ -91,7 +91,7 @@ export class AuthService {
     
     const authResponse = this.mockDatabase[formattedCpf];
 
-    if (authResponse && (password === 'Livia#19711208' || password === 'Maria#19820225')) {
+    if (authResponse && password === 'Livia#19711208') {
       this.setAuthSession(authResponse);
       return true;
     }
